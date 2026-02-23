@@ -30,6 +30,12 @@ jobs:
       - name: Check formatting
         run: npm run format:check
 
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Audit production dependencies
+        run: npm audit --audit-level=high --omit=dev
+
       - name: Install Vercel CLI
         run: npm install -g vercel@latest
 
