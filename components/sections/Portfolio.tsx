@@ -34,7 +34,9 @@ export function Portfolio() {
                       <div
                         key={j}
                         className="w-1 rounded-full bg-gradient-to-t from-[#00e5ff] to-[#a855f7]"
-                        style={{ height: `${Math.max(8, Math.sin(j * 0.5) * 30 + 35 + Math.random() * 20)}px` }}
+                        style={{
+                          height: `${Math.max(8, Math.sin(j * 0.5) * 30 + 35 + Math.random() * 20)}px`,
+                        }}
                       />
                     ))}
                   </div>
@@ -44,7 +46,9 @@ export function Portfolio() {
                     <div className="w-10 h-10 rounded-full bg-[#00e5ff] flex items-center justify-center shadow-lg shadow-[#00e5ff]/30">
                       <Play size={16} className="text-black fill-black ml-0.5" />
                     </div>
-                    <span className="absolute bottom-2 right-3 text-xs text-[#888]">SoundCloud embed</span>
+                    <span className="absolute bottom-2 right-3 text-xs text-[#888]">
+                      SoundCloud embed
+                    </span>
                   </div>
                 </div>
 
@@ -81,7 +85,8 @@ export function Portfolio() {
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
         >
-          * Tracks displayed anonymously to protect artist confidentiality. Full demos available upon booking.
+          * Tracks displayed anonymously to protect artist confidentiality. Full demos available
+          upon booking.
         </motion.p>
       </div>
     </section>

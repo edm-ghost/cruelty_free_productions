@@ -46,21 +46,36 @@ export const services = [
     title: "Ghost Production",
     description:
       "Full original tracks from concept to master — melody, arrangement, sound design, mix, and master. Delivered in stems + mixdown. You own 100% of the rights.",
-    features: ["Stems + project file", "2 revisions included", "Genre-matched sound design", "14-day delivery"],
+    features: [
+      "Stems + project file",
+      "2 revisions included",
+      "Genre-matched sound design",
+      "14-day delivery",
+    ],
   },
   {
     icon: "Sliders",
     title: "Mixing & Mastering",
     description:
       "Get your existing session sounding polished and commercial-ready. We mix in the style of your reference tracks and master for streaming platforms.",
-    features: ["Streaming-ready loudness", "Reference track matching", "48hr turnaround", "Unlimited minor revisions"],
+    features: [
+      "Streaming-ready loudness",
+      "Reference track matching",
+      "48hr turnaround",
+      "Unlimited minor revisions",
+    ],
   },
   {
     icon: "Package",
     title: "Sample Packs",
     description:
       "Custom sample packs built around your brand. Signature loops, one-shots, FX, and MIDI — crafted to match your style for consistent releases.",
-    features: ["100% royalty-free", "Custom genre-matching", "WAV + MIDI included", "Exclusive or non-exclusive"],
+    features: [
+      "100% royalty-free",
+      "Custom genre-matching",
+      "WAV + MIDI included",
+      "Exclusive or non-exclusive",
+    ],
   },
 ];
 
@@ -91,7 +106,8 @@ export const portfolio = [
     genre: "Future Bass",
     bpm: 140,
     key: "F# Minor",
-    description: "Lush supersaws, emotional chord progressions, and a euphoric drop. Delivered for a Spotify-signed artist.",
+    description:
+      "Lush supersaws, emotional chord progressions, and a euphoric drop. Delivered for a Spotify-signed artist.",
     soundcloudUrl: null, // placeholder
     plays: "82K",
   },
@@ -100,7 +116,8 @@ export const portfolio = [
     genre: "Dark Techno",
     bpm: 138,
     key: "A Minor",
-    description: "Industrial percussion, hypnotic bassline, and a driving acid sequence. Built for an underground Berlin label.",
+    description:
+      "Industrial percussion, hypnotic bassline, and a driving acid sequence. Built for an underground Berlin label.",
     soundcloudUrl: null,
     plays: "61K",
   },
@@ -109,7 +126,8 @@ export const portfolio = [
     genre: "Progressive House",
     bpm: 126,
     key: "G Major",
-    description: "Mainstage-ready progressive house with sweeping pads, punchy drums, and a peak-time build.",
+    description:
+      "Mainstage-ready progressive house with sweeping pads, punchy drums, and a peak-time build.",
     soundcloudUrl: null,
     plays: "114K",
   },
@@ -204,11 +222,21 @@ export const faq = [
 
 export const contact = {
   heading: "Let's Build Something",
-  subtext: "Ready to elevate your sound? Send us your brief and we'll get back to you within 24 hours.",
+  subtext:
+    "Ready to elevate your sound? Send us your brief and we'll get back to you within 24 hours.",
   info: [
     { icon: "Mail", label: "Email", value: "bookings@spectrabeats.com" },
     { icon: "Clock", label: "Response Time", value: "Within 24 hours" },
     { icon: "MapPin", label: "Based In", value: "Los Angeles, CA" },
   ],
-  genres: ["Future Bass", "Progressive House", "Techno", "Drum & Bass", "Trance", "Dubstep", "Melodic House", "Other"],
+  genres: [
+    "Future Bass",
+    "Progressive House",
+    "Techno",
+    "Drum & Bass",
+    "Trance",
+    "Dubstep",
+    "Melodic House",
+    "Other",
+  ],
 };

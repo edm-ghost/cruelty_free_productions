@@ -18,12 +18,10 @@ interface ButtonProps {
 }
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-gradient-to-r from-[#00e5ff] to-[#a855f7] text-black font-semibold hover:opacity-90",
+  primary: "bg-gradient-to-r from-[#00e5ff] to-[#a855f7] text-black font-semibold hover:opacity-90",
   secondary:
     "border border-white/20 text-[#f0f0f0] hover:border-[#00e5ff]/60 hover:text-[#00e5ff] bg-transparent",
-  ghost:
-    "text-[#888] hover:text-[#f0f0f0] bg-transparent",
+  ghost: "text-[#888] hover:text-[#f0f0f0] bg-transparent",
 };
 
 const sizes: Record<Size, string> = {

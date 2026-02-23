@@ -38,11 +38,11 @@ This creates a `.vercel/project.json` file containing your `orgId` and `projectI
 
 ### 2. Get your credentials
 
-| Value | Where to find it |
-|---|---|
-| `VERCEL_TOKEN` | Vercel Dashboard → Settings → Tokens → Create token |
-| `VERCEL_ORG_ID` | `.vercel/project.json` → `orgId` field |
-| `VERCEL_PROJECT_ID` | `.vercel/project.json` → `projectId` field |
+| Value               | Where to find it                                    |
+| ------------------- | --------------------------------------------------- |
+| `VERCEL_TOKEN`      | Vercel Dashboard → Settings → Tokens → Create token |
+| `VERCEL_ORG_ID`     | `.vercel/project.json` → `orgId` field              |
+| `VERCEL_PROJECT_ID` | `.vercel/project.json` → `projectId` field          |
 
 ### 3. Add GitHub repo secrets
 
@@ -59,6 +59,7 @@ git push origin main
 ```
 
 The GitHub Actions workflow (`.github/workflows/deploy.yml`) will automatically:
+
 1. Install dependencies
 2. Pull Vercel environment variables
 3. Build the project

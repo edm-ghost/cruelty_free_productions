@@ -19,10 +19,19 @@ export const metadata: Metadata = {
   title: "SPECTRA | Premium EDM Ghost Production",
   description:
     "Studio-quality EDM ghost production — fully exclusive tracks delivered in 14 days. Future Bass, Techno, Progressive House, and more. 500+ tracks delivered.",
-  keywords: ["ghost production", "EDM producer", "buy beats", "music production", "future bass", "techno", "progressive house"],
+  keywords: [
+    "ghost production",
+    "EDM producer",
+    "buy beats",
+    "music production",
+    "future bass",
+    "techno",
+    "progressive house",
+  ],
   openGraph: {
     title: "SPECTRA | Premium EDM Ghost Production",
-    description: "Studio-quality ghost production for EDM artists. 500+ tracks delivered. 100% exclusive rights.",
+    description:
+      "Studio-quality ghost production for EDM artists. 500+ tracks delivered. 100% exclusive rights.",
     type: "website",
   },
 };
@@ -34,7 +43,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${geistSans.variable} ${inter.variable} antialiased bg-[#080808] text-[#f0f0f0]`}>
+      <body
+        className={`${geistSans.variable} ${inter.variable} antialiased bg-[#080808] text-[#f0f0f0]`}
+      >
         {children}
       </body>
     </html>

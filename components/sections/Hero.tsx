@@ -69,8 +69,12 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.35 }}
         >
-          <Button href="#contact" size="lg">{hero.cta_primary}</Button>
-          <Button href="#portfolio" size="lg" variant="secondary">{hero.cta_secondary}</Button>
+          <Button href="#contact" size="lg">
+            {hero.cta_primary}
+          </Button>
+          <Button href="#portfolio" size="lg" variant="secondary">
+            {hero.cta_secondary}
+          </Button>
         </motion.div>
 
         {/* Stats */}

@@ -40,7 +40,9 @@ export function Services() {
                   </div>
 
                   <h3 className="text-lg font-bold text-[#f0f0f0] mb-3">{service.title}</h3>
-                  <p className="text-[#888] text-sm leading-relaxed mb-5 flex-1">{service.description}</p>
+                  <p className="text-[#888] text-sm leading-relaxed mb-5 flex-1">
+                    {service.description}
+                  </p>
 
                   <ul className="space-y-2">
                     {service.features.map((f) => (

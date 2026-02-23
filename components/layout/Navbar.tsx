@@ -31,9 +31,7 @@ export function Navbar() {
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2 group">
-            <span className="text-xl font-bold tracking-wider gradient-text">
-              {site.name}
-            </span>
+            <span className="text-xl font-bold tracking-wider gradient-text">{site.name}</span>
             <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[#888] mt-0.5">
               {site.tagline}
             </span>
@@ -54,7 +52,9 @@ export function Navbar() {
 
           {/* CTA */}
           <div className="hidden md:block">
-            <Button href="#contact" size="sm">Book Now</Button>
+            <Button href="#contact" size="sm">
+              Book Now
+            </Button>
           </div>
 
           {/* Mobile toggle */}

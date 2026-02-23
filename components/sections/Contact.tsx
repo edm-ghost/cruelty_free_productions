@@ -13,7 +13,9 @@ export function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", genre: "", message: "" });
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
+  function handleChange(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
@@ -29,11 +31,7 @@ export function Contact() {
   return (
     <section id="contact" className="py-24 bg-[#0a0a0a]">
       <div className="max-w-7xl mx-auto px-6">
-        <SectionHeader
-          eyebrow="Book a Track"
-          title={contact.heading}
-          subtitle={contact.subtext}
-        />
+        <SectionHeader eyebrow="Book a Track" title={contact.heading} subtitle={contact.subtext} />
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
           {/* Form */}
@@ -49,7 +47,8 @@ export function Contact() {
                 <CheckCircle size={48} className="text-[#00e5ff]" />
                 <h3 className="text-xl font-bold text-[#f0f0f0]">Message Received!</h3>
                 <p className="text-[#888] text-sm max-w-xs">
-                  Thanks for reaching out. We&apos;ll review your brief and get back to you within 24 hours.
+                  Thanks for reaching out. We&apos;ll review your brief and get back to you within
+                  24 hours.
                 </p>
               </div>
             ) : (
@@ -99,9 +98,13 @@ export function Contact() {
                     onChange={handleChange}
                     className={inputClass}
                   >
-                    <option value="" disabled>Select your genre</option>
+                    <option value="" disabled>
+                      Select your genre
+                    </option>
                     {contact.genres.map((g) => (
-                      <option key={g} value={g}>{g}</option>
+                      <option key={g} value={g}>
+                        {g}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -148,7 +151,9 @@ export function Contact() {
                     {Icon && <Icon size={18} className="text-[#00e5ff]" />}
                   </div>
                   <div>
-                    <p className="text-xs font-semibold text-[#888] tracking-wide mb-0.5">{item.label}</p>
+                    <p className="text-xs font-semibold text-[#888] tracking-wide mb-0.5">
+                      {item.label}
+                    </p>
                     <p className="text-sm text-[#f0f0f0]">{item.value}</p>
                   </div>
                 </div>
@@ -161,7 +166,8 @@ export function Contact() {
                 Satisfaction Guarantee
               </p>
               <p className="text-sm text-[#888] leading-relaxed">
-                If you&apos;re not happy after revisions, we&apos;ll issue a partial refund or credit toward a future project — no questions asked.
+                If you&apos;re not happy after revisions, we&apos;ll issue a partial refund or
+                credit toward a future project — no questions asked.
               </p>
             </div>
           </motion.div>

@@ -50,7 +50,9 @@ export function Pricing() {
                     {tier.tier}
                   </p>
                   <div className="flex items-end gap-1 mb-2">
-                    <span className={`text-4xl font-bold ${tier.highlighted ? "gradient-text" : "text-[#f0f0f0]"}`}>
+                    <span
+                      className={`text-4xl font-bold ${tier.highlighted ? "gradient-text" : "text-[#f0f0f0]"}`}
+                    >
                       {tier.price}
                     </span>
                     <span className="text-[#888] text-sm mb-1">{tier.per}</span>
@@ -89,7 +91,11 @@ export function Pricing() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          Need something custom? <a href="#contact" className="text-[#00e5ff] hover:underline">Get in touch</a> — we offer monthly retainers and bundle pricing.
+          Need something custom?{" "}
+          <a href="#contact" className="text-[#00e5ff] hover:underline">
+            Get in touch
+          </a>{" "}
+          — we offer monthly retainers and bundle pricing.
         </motion.p>
       </div>
     </section>
