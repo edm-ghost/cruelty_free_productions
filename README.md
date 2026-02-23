@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SPECTRA — EDM Ghost Production Website
 
-## Getting Started
+A production-quality single-page website for an EDM ghost production business, built with Next.js 16, Tailwind CSS v4, and Framer Motion.
 
-First, run the development server:
+## Stack
+
+- **Framework**: Next.js 16 (App Router, TypeScript)
+- **Styling**: Tailwind CSS v4
+- **Animations**: Framer Motion 12
+- **Icons**: Lucide React
+- **Fonts**: Geist (headings) + Inter (body) via `next/font/google`
+- **Deployment**: GitHub Actions → Vercel CLI
+
+---
+
+## Local Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deploying to Vercel via GitHub Actions
 
-## Learn More
+### 1. Create a Vercel project
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm install -g vercel
+vercel login
+vercel link   # run inside the project directory
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This creates a `.vercel/project.json` file containing your `orgId` and `projectId`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 2. Get your credentials
 
-## Deploy on Vercel
+| Value | Where to find it |
+|---|---|
+| `VERCEL_TOKEN` | Vercel Dashboard → Settings → Tokens → Create token |
+| `VERCEL_ORG_ID` | `.vercel/project.json` → `orgId` field |
+| `VERCEL_PROJECT_ID` | `.vercel/project.json` → `projectId` field |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 3. Add GitHub repo secrets
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Go to your GitHub repo → **Settings → Secrets and variables → Actions → New repository secret**, and add:
+
+- `VERCEL_TOKEN`
+- `VERCEL_ORG_ID`
+- `VERCEL_PROJECT_ID`
+
+### 4. Push to `main`
+
+```bash
+git push origin main
+```
+
+The GitHub Actions workflow (`.github/workflows/deploy.yml`) will automatically:
+1. Install dependencies
+2. Pull Vercel environment variables
+3. Build the project
+4. Deploy to Vercel production
+
+---
+
+## Project Structure
+
+```
+edm-ghost-prod/
+├── app/
+│   ├── layout.tsx          # Root layout, metadata, fonts
+│   ├── page.tsx            # Assembles all sections
+│   └── globals.css         # Tailwind + CSS vars + custom styles
+├── components/
+│   ├── layout/
+│   │   ├── Navbar.tsx
+│   │   └── Footer.tsx
+│   ├── sections/
+│   │   ├── Hero.tsx
+│   │   ├── Services.tsx
+│   │   ├── HowItWorks.tsx
+│   │   ├── Portfolio.tsx
+│   │   ├── Pricing.tsx
+│   │   ├── FAQ.tsx
+│   │   └── Contact.tsx
+│   └── ui/
+│       ├── Button.tsx
+│       ├── Card.tsx
+│       └── SectionHeader.tsx
+├── lib/
+│   └── content.ts          # All placeholder text/data
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+├── .env.example
+└── README.md
+```
+
+## Customization
+
+All placeholder content lives in `lib/content.ts`. Edit the `site`, `hero`, `services`, `pricing`, `faq`, and `contact` exports to update the website copy without touching any component files.
