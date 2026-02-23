@@ -158,7 +158,7 @@ export const pricing = [
       "Full original track (3–8 min)",
       "Mixdown + master",
       "Stems + project file",
-      "Unlimited revisions",
+      "5 revision rounds",
       "7-day delivery",
       "Full exclusive rights",
       "VIP producer access",
