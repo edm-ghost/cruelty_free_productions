@@ -60,7 +60,7 @@ jobs:
           truncated = False
           diff = open("pr.diff", encoding="utf-8", errors="replace").read()
           if len(diff) > 30000:
-              diff = diff[:30000]
+              diff = diff[:30000] + "\n\n[diff truncated — remaining content not reviewed]"
               truncated = True
 
           if not diff.strip():
@@ -99,12 +99,24 @@ jobs:
           except urllib.error.HTTPError as e:
               body = e.read().decode(errors="replace")
               print(f"Claude API error {e.code}: {body}", file=sys.stderr)
-              sys.exit(1)
+              open("review.md", "w", encoding="utf-8").write(
+                  f"## AI Code Review\n\n> ⚠️ Review unavailable — API error {e.code}."
+              )
+              sys.exit(0)
           except Exception as e:
               print(f"Review failed: {type(e).__name__}", file=sys.stderr)
-              sys.exit(1)
+              open("review.md", "w", encoding="utf-8").write(
+                  "## AI Code Review\n\n> ⚠️ Review unavailable — transient error. See Actions log."
+              )
+              sys.exit(0)
 
-          review = result["content"][0]["text"]
+          blocks = result.get("content") or []
+          review = next((b["text"] for b in blocks if b.get("type") == "text"), None)
+          if not review:
+              open("review.md", "w", encoding="utf-8").write(
+                  "## AI Code Review\n\n> ⚠️ Review unavailable — unexpected API response shape."
+              )
+              sys.exit(0)
 
           if truncated:
               review += "\n\n> ⚠️ Diff was truncated to 30 000 characters — analysis may be incomplete."
@@ -119,9 +131,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          if gh pr comment "$PR_NUMBER" --edit-last --body-file review.md 2>/dev/null; then
+          if gh pr comment "$PR_NUMBER" --edit-last --body-file review.md; then
             echo "Updated existing comment."
           else
+            echo "No previous comment to edit — posting new comment."
             gh pr comment "$PR_NUMBER" --body-file review.md
           fi
 
