@@ -46,14 +46,16 @@ jobs:
           fetch-depth: 0
 
       - name: Generate diff
-        run: git diff origin/${{ github.base_ref }}...HEAD > pr.diff
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: git diff "origin/$BASE_REF"...HEAD > pr.diff
 
       - name: Review with Claude
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           python3 - <<'EOF'
-          import json, os, urllib.request
+          import json, os, sys, urllib.request, urllib.error
 
           diff = open("pr.diff").read()
           if len(diff) > 30000:
@@ -61,11 +63,11 @@ jobs:
 
           if not diff.strip():
               open("review.md", "w").write("## AI Code Review\n\nNo diff detected.")
-              exit()
+              sys.exit(0)
 
           payload = {
               "model": "claude-sonnet-4-6",
-              "max_tokens": 1024,
+              "max_tokens": 4096,
               "messages": [{
                   "role": "user",
                   "content": (
@@ -80,24 +82,41 @@ jobs:
               }]
           }
 
-          req = urllib.request.Request(
-              "https://api.anthropic.com/v1/messages",
-              data=json.dumps(payload).encode(),
-              headers={
-                  "x-api-key": os.environ["ANTHROPIC_API_KEY"],
-                  "anthropic-version": "2023-06-01",
-                  "content-type": "application/json",
-              },
-          )
-
-          with urllib.request.urlopen(req) as resp:
-              result = json.loads(resp.read())
+          try:
+              req = urllib.request.Request(
+                  "https://api.anthropic.com/v1/messages",
+                  data=json.dumps(payload).encode(),
+                  headers={
+                      "x-api-key": os.environ["ANTHROPIC_API_KEY"],
+                      "anthropic-version": "2023-06-01",
+                      "content-type": "application/json",
+                  },
+              )
+              with urllib.request.urlopen(req, timeout=60) as resp:
+                  result = json.loads(resp.read())
+          except urllib.error.HTTPError as e:
+              body = e.read().decode(errors="replace")
+              print(f"Claude API error {e.code}: {body}", file=sys.stderr)
+              sys.exit(1)
+          except Exception as e:
+              print(f"Review failed: {type(e).__name__}", file=sys.stderr)
+              sys.exit(1)
 
           review = result["content"][0]["text"]
+
+          if result.get("stop_reason") == "max_tokens":
+              review += "\n\n> ⚠️ Response was truncated (max_tokens reached)."
+
           open("review.md", "w").write("## AI Code Review\n\n" + review)
           EOF
 
       - name: Post review comment
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh pr comment ${{ github.event.pull_request.number }} --body-file review.md
+        run: |
+          PR=${{ github.event.pull_request.number }}
+          if gh pr comment "$PR" --edit-last --body-file review.md 2>/dev/null; then
+            echo "Updated existing comment."
+          else
+            gh pr comment "$PR" --body-file review.md
+          fi
