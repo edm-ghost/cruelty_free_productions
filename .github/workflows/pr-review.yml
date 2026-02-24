@@ -57,12 +57,14 @@ jobs:
           python3 - <<'EOF'
           import json, os, sys, urllib.request, urllib.error
 
-          diff = open("pr.diff").read()
+          truncated = False
+          diff = open("pr.diff", encoding="utf-8", errors="replace").read()
           if len(diff) > 30000:
-              diff = diff[:30000] + "\n\n[diff truncated — file too large]"
+              diff = diff[:30000]
+              truncated = True
 
           if not diff.strip():
-              open("review.md", "w").write("## AI Code Review\n\nNo diff detected.")
+              open("review.md", "w", encoding="utf-8").write("## AI Code Review\n\nNo diff detected.")
               sys.exit(0)
 
           payload = {
@@ -104,19 +106,25 @@ jobs:
 
           review = result["content"][0]["text"]
 
+          if truncated:
+              review += "\n\n> ⚠️ Diff was truncated to 30 000 characters — analysis may be incomplete."
           if result.get("stop_reason") == "max_tokens":
               review += "\n\n> ⚠️ Response was truncated (max_tokens reached)."
 
-          open("review.md", "w").write("## AI Code Review\n\n" + review)
+          open("review.md", "w", encoding="utf-8").write("## AI Code Review\n\n" + review)
           EOF
 
       - name: Post review comment
         env:
           GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          PR=${{ github.event.pull_request.number }}
-          if gh pr comment "$PR" --edit-last --body-file review.md 2>/dev/null; then
+          if gh pr comment "$PR_NUMBER" --edit-last --body-file review.md 2>/dev/null; then
             echo "Updated existing comment."
           else
-            gh pr comment "$PR" --body-file review.md
+            gh pr comment "$PR_NUMBER" --body-file review.md
           fi
+
+      - name: Cleanup
+        if: always()
+        run: rm -f pr.diff review.md
